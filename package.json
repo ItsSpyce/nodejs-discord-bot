@@ -8,8 +8,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
     "build": "cross-env NODE_ENV=production tsc --build",
+    "start:dev": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
     "start:prod": "cross-env NODE_ENV=production dist/index.js"
   },
   "dependencies": {
