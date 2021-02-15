@@ -1,0 +1,7 @@
+logs
+*.logs
+build/
+config/scripts/
+node_modules/
+package.json
+yarn.lock
