@@ -27,3 +27,12 @@ When running without Docker, you have 2 choices:
 Both of these options will load their respective .env file and include specific logging.
 
 If you're using Docker, just run `docker-compose up`.
+
+# Development
+
+## Creating a new command
+
+To create a new command, inherit from the `Command` interface. This does not auto-register though, that is done with 1 of 2 ways:
+
+- `command-runner.registerCommand`: this accepts either the function _or_ you can initialize a new instance of the command.
+- the `command-runner.command` decorator. Much like the `registerCommand` function, you can pass arguments into this decorator to pass into the constructor function. This method requires you to add the command as an export to `./commands/index.ts`.

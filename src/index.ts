@@ -1,11 +1,9 @@
 import { Client, Message } from 'discord.js';
-import env from './env';
 import logger from './logger';
-import { evalMessage, registerCommand } from './command-runner';
-import HelpCommand from './commands/help';
+import { evalMessage } from './command-runner';
 import { getCommandPrefix } from './utils';
-
-env();
+import './env';
+import './commands';
 
 const { BOT_TOKEN } = process.env;
 if (!BOT_TOKEN || BOT_TOKEN.length === 0) {
@@ -13,8 +11,6 @@ if (!BOT_TOKEN || BOT_TOKEN.length === 0) {
     'A valid bot token was not provided. For help on how to get this, check out https://discord.com/developers/docs/topics/oauth2#bots'
   );
 }
-
-registerCommand(HelpCommand);
 
 const bot = new Client();
 bot.on('ready', () => {

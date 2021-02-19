@@ -12,6 +12,12 @@ const registeredCommands = new Map<string, Command>();
 const commandFormats = new Map<string, FormatParam[]>();
 const formatParamRegex = /\??[a-z_-]/gi;
 
+export function command(...args: any[]) {
+  return function (ctor: Constructor<Command>) {
+    registerCommand(new ctor(...args));
+  };
+}
+
 export function registerCommand(command: Command | Constructor<Command>) {
   const instance: Command =
     typeof command === 'function' ? new command() : command;

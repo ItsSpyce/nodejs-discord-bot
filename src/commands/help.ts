@@ -1,11 +1,12 @@
 import { Command, CommandArgs } from 'app-env';
 import { getCommandPrefix } from '../utils';
-import { getCommands } from '../command-runner';
+import { command, getCommands } from '../command-runner';
 
 type HelpArgs = {
   topic?: string;
 };
 
+@command('put any args that would be passed to the constructor here')
 export default class HelpCommand implements Command<HelpArgs> {
   readonly name = 'help';
   readonly description = 'Returns a list of commands';
