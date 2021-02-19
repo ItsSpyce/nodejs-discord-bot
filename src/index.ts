@@ -3,7 +3,7 @@ import env from './env';
 import logger from './logger';
 import { evalMessage, registerCommand } from './command-runner';
 import HelpCommand from './commands/help';
-import { getCommandPrefix } from 'utils';
+import { getCommandPrefix } from './utils';
 
 env();
 
@@ -21,8 +21,10 @@ bot.on('ready', () => {
   logger.log('Bot ready');
 });
 
+const prefix = getCommandPrefix();
+
 bot.on('message', async (message: Message) => {
-  if (!message.content.startsWith(getCommandPrefix())) return;
+  if (!message.content.startsWith(prefix)) return;
   await evalMessage(message);
 });
 

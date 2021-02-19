@@ -2,7 +2,7 @@
 import fs from 'fs';
 import dotenvExpand from 'dotenv-expand';
 import { config } from 'dotenv';
-import logger from 'logger';
+import logger from './logger';
 
 export default function configure() {
   const { NODE_ENV } = process.env;
@@ -25,8 +25,10 @@ export default function configure() {
       if (error) {
         logger.error(`Failed to parse ${dotenvFile}: ${error}`);
       } else {
-        logger.log(`Loaded env file ${dotenvFile}`);
+        logger.debug(`Loaded env file ${dotenvFile}`);
       }
+    } else {
+      logger.debug(`Could not find ${dotenvFile}, skipping`);
     }
   });
 }

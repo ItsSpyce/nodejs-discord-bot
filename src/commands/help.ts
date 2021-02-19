@@ -1,5 +1,5 @@
 import { Command, CommandArgs } from 'app-env';
-import { getCommandPrefix } from 'utils';
+import { getCommandPrefix } from '../utils';
 import { getCommands } from '../command-runner';
 
 type HelpArgs = {

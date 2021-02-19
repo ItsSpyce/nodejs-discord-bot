@@ -1,12 +1,14 @@
-FROM node:15 as build
+FROM node:alpine as build
 
 ENV NPM_CONFIG_LOGLEVEL warn
 
-# install dependencies
-RUN ["npm"]
+WORKDIR /usr/app
+COPY . /usr/app
 
-# build the package
-RUN ["npm", "run", "build"]
+# install latest npm
+RUN ["npm", "i", "npm", "-g"]
+# install dependencies
+RUN ["npm", "i"]
 
 # start the bot
-ENTRYPOINT [ "npm", "run", "start:prod" ]
+ENTRYPOINT [ "npm", "run", "prod" ]

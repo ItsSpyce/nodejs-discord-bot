@@ -1,7 +1,7 @@
-import chalk from 'chalk';
 import { Command, Constructor } from 'app-env';
 import _ from 'lodash';
 import { Message } from 'discord.js';
+import logger from './logger';
 
 type FormatParam = {
   name: string;
@@ -15,24 +15,18 @@ const formatParamRegex = /\??[a-z_-]/gi;
 export function registerCommand(command: Command | Constructor<Command>) {
   const instance: Command =
     typeof command === 'function' ? new command() : command;
-  if (registeredCommands.has(command.name)) {
-    console.error(
-      chalk`{bgRedBright.black ERROR} ${command.name} is already registered`
-    );
+  if (registeredCommands.has(instance.name)) {
+    logger.error(`${instance.name} is already registered`);
     return;
   }
-  registeredCommands.set(command.name, instance);
+  registeredCommands.set(instance.name, instance);
   const format = instance.format || '';
   try {
     const formatMap = buildFormatMap(format);
-    commandFormats.set(command.name, formatMap);
-    console.log(
-      chalk`{bgGreenBright.black SUCCESS} Command ${instance.name} registered`
-    );
+    commandFormats.set(instance.name, formatMap);
+    logger.success(`Registered command ${instance.name}`);
   } catch (err) {
-    console.log(
-      chalk`{bgRedBright.black ERROR} Failed to register ${instance.name} - ${err.message}`
-    );
+    logger.error(`Failed to register ${instance.name} - ${err.message}`);
   }
 }
 
@@ -128,7 +122,7 @@ export async function evalMessage(message: Message) {
   if (!command) {
     return;
   }
-  console.log(chalk`{bgBlueBright.black INFO} Executing command ${name}`);
+  logger.debug(`Executing command ${name}`);
   await command.exec({ message, params });
 }
 
